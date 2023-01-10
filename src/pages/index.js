@@ -41,6 +41,7 @@ const Home = ({ user }) => {
         onEditItem={handleEdit}
         onDeleteItem={deleteTodo}
         onMarkItem={completeTodo}
+        loading={getAllTodos.isFetching}
       />
       <ModalForm
         open={openModal}
