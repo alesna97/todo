@@ -1,4 +1,4 @@
-const { default: baseApi } = require("api/baseApi");
+import baseApi from "api/baseApi";
 
 const path = "/todos";
 
