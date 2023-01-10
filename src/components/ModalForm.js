@@ -52,7 +52,7 @@ const ModalForm = ({ open, handleClose, editId, user, setEditId }) => {
       fullWidth
     >
       <DialogTitle>Todo</DialogTitle>
-      {getTodo.isLoading ? (
+      {getTodo.isLoading && editId ? (
         <Box
           display="flex"
           justifyContent="center"
