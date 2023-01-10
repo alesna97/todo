@@ -1,13 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Add } from "@mui/icons-material";
-import { Card, Fab } from "@mui/material";
+import { Fab, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Header from "components/Header";
+import ModalForm from "components/ModalForm";
 import TodoList from "components/TodoList";
 import useTodos from "hooks/useTodos";
-import { useEffect } from "react";
+import { useCallback, useState } from "react";
 
-const Home = () => {
-  const { getAllTodos } = useTodos();
+const Home = ({ user }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const [editId, setEditId] = useState();
+  const { getAllTodos, deleteTodo, completeTodo } = useTodos({
+    getAllTodo: true,
+    user,
+  });
+
+  const closeModal = useCallback(() => setOpenModal(false), []);
+  const handleOpenModal = useCallback(() => setOpenModal(true), []);
+  const handleEdit = useCallback((id) => {
+    setOpenModal(true);
+    setEditId(id);
+  }, []);
 
   return (
     <Box
@@ -19,9 +33,29 @@ const Home = () => {
       boxShadow={3}
     >
       <Header />
-      <TodoList data={getAllTodos.data?.data?.todos || []} />
+      <Typography px={2} variant="h6">
+        logged in as {user.username}.
+      </Typography>
+      <TodoList
+        data={getAllTodos.data?.data?.todos || []}
+        onEditItem={handleEdit}
+        onDeleteItem={deleteTodo}
+        onMarkItem={completeTodo}
+      />
+      <ModalForm
+        open={openModal}
+        handleClose={closeModal}
+        user={user}
+        editId={editId}
+        setEditId={setEditId}
+      />
       <Box position="fixed" bottom={30} right={30}>
-        <Fab color="primary" aria-label="add" size="large">
+        <Fab
+          color="primary"
+          aria-label="add"
+          size="large"
+          onClick={handleOpenModal}
+        >
           <Add />
         </Fab>
       </Box>

@@ -3,7 +3,13 @@ import { Button, Card, IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 
-const TodoCard = ({ text, completed }) => {
+const TodoCard = ({
+  text,
+  completed,
+  onClickEdit,
+  onClickDelete,
+  onMarkComplete,
+}) => {
   const colors = ["red", "orange", "yellow", "green", "blue", "purple"];
   return (
     <Card
@@ -11,7 +17,7 @@ const TodoCard = ({ text, completed }) => {
         width: "100%",
         opacity: completed ? 0.5 : 1,
         borderLeft: `solid 4px ${
-          colors[[Math.floor(Math.random() * colors.length)]]
+          colors[Math.floor(Math.random() * colors.length)]
         }`,
       }}
     >
@@ -20,17 +26,17 @@ const TodoCard = ({ text, completed }) => {
           <Typography variant="body1">{text}</Typography>
         </Box>
         <Box display="flex" alignItems="center">
-          <IconButton size="small" disabled={completed}>
+          <IconButton size="small" disabled={completed} onClick={onClickEdit}>
             <Edit fontSize="small" />
           </IconButton>
-          <IconButton size="small" disabled={completed}>
+          <IconButton size="small" disabled={completed} onClick={onClickDelete}>
             <Delete fontSize="small" />
           </IconButton>
         </Box>
       </Box>
       <Box display="flex" justifyContent="end">
-        <Button variant="text" disabled={completed}>
-          Mark as complete
+        <Button variant="text" disabled={completed} onClick={onMarkComplete}>
+          {completed ? "completed" : "Mark as complete"}
         </Button>
       </Box>
     </Card>

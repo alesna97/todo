@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Adding a new todo will not add it into the server.
+It will simulate a POST request and will return the new created todo with a new id
 
 ## Getting Started
 

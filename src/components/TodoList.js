@@ -3,7 +3,13 @@ import { Box } from "@mui/system";
 import TodoCard from "components/TodoCard";
 import React from "react";
 
-const TodoList = ({ data = [], loading = false }) => {
+const TodoList = ({
+  data = [],
+  loading = false,
+  onEditItem,
+  onDeleteItem,
+  onMarkItem,
+}) => {
   return (
     <Box
       display="flex"
@@ -13,7 +19,14 @@ const TodoList = ({ data = [], loading = false }) => {
       gap={2}
     >
       {data.map((item) => (
-        <TodoCard text={item.todo} key={item.id} completed={item.completed} />
+        <TodoCard
+          text={item.todo}
+          key={item.id}
+          completed={item.completed}
+          onClickEdit={() => onEditItem(item.id)}
+          onClickDelete={() => onDeleteItem.mutate({ id: item.id })}
+          onMarkComplete={() => onMarkItem.mutate({ id: item.id })}
+        />
       ))}
       {loading && <CircularProgress size={24} />}
     </Box>
